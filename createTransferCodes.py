@@ -49,12 +49,12 @@ print('_'*50)
 print('Creating transfer codes:')
 print('_'*50)
 
+#with tf.Session() as sess:
 with tf.Session() as sess:
-    with tf.Session() as sess:
-        vgg = vgg16.Vgg16()
-        input_ = tf.placeholder(tf.float32, [None, 224, 224, 3])
-        with tf.name_scope("content_vgg"):
-            vgg.build(input_)
+    vgg = vgg16.Vgg16()
+    input_ = tf.placeholder(tf.float32, [None, 224, 224, 3])
+    with tf.name_scope("content_vgg"):
+        vgg.build(input_)
 
     for each in classes:
         print("Starting {} images".format(each))

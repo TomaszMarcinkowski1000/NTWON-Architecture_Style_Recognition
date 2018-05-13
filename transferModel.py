@@ -13,9 +13,9 @@ from keras.optimizers import Adam
 from keras.callbacks import LearningRateScheduler
 from keras import backend as K
 
-EPOCHS = 20
+EPOCHS = 20000
 optimizer = Adam(lr=0.01)
-create_new_transfer_codes = True
+create_new_transfer_codes = False
 
 
 # ---------------------------------------------------

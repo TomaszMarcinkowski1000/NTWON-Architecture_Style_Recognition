@@ -9,7 +9,7 @@ import dataHandler
 import csv
 
 vgg_dir = 'tensorflow_vgg/'
-data_dir = 'GOT/'
+data_dir = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior3_koledzy_transformed/"
 
 # -------------------------------------------------------------
 # download trained model data

@@ -13,7 +13,7 @@ from keras.optimizers import Adam
 from keras.callbacks import LearningRateScheduler
 from keras import backend as K
 
-EPOCHS = 20000
+EPOCHS = 10
 optimizer = Adam(lr=0.01)
 create_new_transfer_codes = False
 
@@ -26,13 +26,13 @@ if create_new_transfer_codes:
 # ---------------------------------------------------
 
 # load files
-with open('labels') as f:
+with open('labels_train') as f:
     reader = csv.reader(f, delimiter='\n')
     labels = np.array([each for each in reader]).squeeze()
     labels = labels[:-1]
     print('loaded labels', labels.shape)
 
-with open('codes') as f:
+with open('codes_train') as f:
     codes = np.fromfile(f, dtype=np.float32)
     codes = codes.reshape((len(labels), -1))
     print('loaded codes', codes.shape)

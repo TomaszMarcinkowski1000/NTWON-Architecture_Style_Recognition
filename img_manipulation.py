@@ -46,7 +46,51 @@ def resizeAndPad(img, size, padColor=0):
     return scaled_img
 
 
-def resize_and_pad_folder(source_folder, destination_folder, size, padColor=0):
+def resizeAndEnlarge(img, size):
+    h, w = img.shape[:2]
+    sh, sw = size
+
+    # interpolation method
+    if h > sh or w > sw:  # shrinking image
+        interp = cv2.INTER_AREA
+    else:  # stretching image
+        interp = cv2.INTER_CUBIC
+
+    if h > w :
+        new_w = sw
+        new_h = np.round(h*(new_w/w)).astype(int)
+    else:
+        new_h = sh
+        new_w = np.round(w*(new_h/h)).astype(int)
+
+    image = cv2.resize(img, (new_w, new_h), interpolation=interp)
+    width = new_w
+    height = new_h
+
+    aspect = width / float(height)
+
+    ideal_width = sw
+    ideal_height = sh
+
+    ideal_aspect = ideal_width / float(ideal_height)
+
+    if aspect > ideal_aspect:
+        # Then crop the left and right edges:
+        new_width = int(ideal_aspect * height)
+        offset = np.round((width - new_width) / 2).astype(int)
+        resize = (offset, 0, width - offset, height)
+    else:
+        # ... crop the top and bottom:
+        new_height = int(width / ideal_aspect)
+        offset = np.round((height - new_height) / 2).astype(int)
+        resize = (0, offset, width, height - offset)
+
+    scaled_img = image[resize[0]:resize[2], resize[1]:resize[3]]
+    scaled_img = cv2.resize(scaled_img, (ideal_width, ideal_height), interpolation=interp)
+    return scaled_img
+
+
+def resize_and_pad_folder(source_folder, destination_folder, size, padColor=0, method = 1):
     classes = dataset.get_classes(source_folder)
 
     print('Reading images')
@@ -61,9 +105,28 @@ def resize_and_pad_folder(source_folder, destination_folder, size, padColor=0):
         for fl in files:
             try:
                 image = cv2.imread(fl)
-                resized_img = resizeAndPad(image,size,padColor)
+                if method == 1:
+                    resized_img = resizeAndPad(image,size,padColor)
+                else :
+                    resized_img = resizeAndEnlarge(image, size)
                 file_to_save = os.path.join(destination_path, os.path.basename(fl))
                 cv2.imwrite(file_to_save, resized_img)
-            except Exception:
+            except Exception as e:
                 print("Exception for file:{file_name}".format(file_name = fl))
                 continue
+
+
+orginal_folder_test = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final/Test"
+orginal_folder_train = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final/Train"
+
+processed_folder_test1 = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final_tr1/Test"
+processed_folder_train1 = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final_tr1/Train"
+
+processed_folder_test2 = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final_tr2/Test"
+processed_folder_train2 = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final_tr2/Train"
+
+resize_and_pad_folder(orginal_folder_test, processed_folder_test1, (224,224), 127)
+resize_and_pad_folder(orginal_folder_train, processed_folder_train1, (224,224), 127)
+
+resize_and_pad_folder(orginal_folder_test, processed_folder_test2, (224,224), 127, method=2)
+resize_and_pad_folder(orginal_folder_train, processed_folder_train2, (224,224), 127, method=2)

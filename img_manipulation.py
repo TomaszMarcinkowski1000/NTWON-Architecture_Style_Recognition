@@ -119,14 +119,17 @@ def resize_and_pad_folder(source_folder, destination_folder, size, padColor=0, m
 orginal_folder_test = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final/Test"
 orginal_folder_train = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final/Train"
 
-processed_folder_test1 = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final_tr1/Test"
-processed_folder_train1 = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final_tr1/Train"
+processed_folder_test1 = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final_tr3/Test"
+processed_folder_train1 = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final_tr3/Train"
 
-processed_folder_test2 = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final_tr2/Test"
-processed_folder_train2 = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final_tr2/Train"
+# processed_folder_test1 = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final_tr1/Test"
+#processed_folder_train1 = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final_tr1/Train"
 
-resize_and_pad_folder(orginal_folder_test, processed_folder_test1, (224,224), 127)
-resize_and_pad_folder(orginal_folder_train, processed_folder_train1, (224,224), 127)
+#processed_folder_test2 = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final_tr2/Test"
+#processed_folder_train2 = "c:/Users/Tomasz Marcinkowski/Documents/MEGA/Zbiory/Zbior4_final_tr2/Train"
 
-resize_and_pad_folder(orginal_folder_test, processed_folder_test2, (224,224), 127, method=2)
-resize_and_pad_folder(orginal_folder_train, processed_folder_train2, (224,224), 127, method=2)
+resize_and_pad_folder(orginal_folder_test, processed_folder_test1, (224,224), 127, method=2)
+resize_and_pad_folder(orginal_folder_train, processed_folder_train1, (224,224), 127, method=2)
+
+#resize_and_pad_folder(orginal_folder_test, processed_folder_test2, (224,224), 127, method=2)
+#resize_and_pad_folder(orginal_folder_train, processed_folder_train2, (224,224), 127, method=2)
